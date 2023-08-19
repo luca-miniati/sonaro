@@ -144,3 +144,7 @@ def top_tracks():
         track_list.append(item['name'] + ' - ' + item['artists'][0]['name'])
 
     return render_template('top-tracks.html', track_list=track_list)
+
+
+if __name__ == '__main__':
+    app.run()
