@@ -12,8 +12,8 @@ app.config['FREEZER_DESTINATION'] = 'build/freezer'
 
 freezer = Freezer(app)
 
-client_id = os.getenv("SPOTIPY_CLIENT_ID")
-client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
 
 sp_oauth = SpotifyOAuth(
     client_id=client_id,
