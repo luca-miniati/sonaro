@@ -14,7 +14,7 @@ client_secret = os.getenv("CLIENT_SECRET")
 sp_oauth = SpotifyOAuth(
     client_id=client_id,
     client_secret=client_secret,
-    redirect_uri='spotifyplayground.onrender.com/callback',
+    redirect_uri=url_for('callback', _external=True),
     scope=['user-library-read', 'user-read-playback-state',
            'user-read-recently-played', 'user-top-read'],
 )
