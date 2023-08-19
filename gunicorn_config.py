@@ -1,7 +1,5 @@
-from app import app
-
-
 def when_ready(server):
+    from app import app
     app.app_context().push()
 
 
