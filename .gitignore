@@ -1,0 +1,8 @@
+# Python Bytecode
+__pycache__/
+
+# IDE and Editor Files
+.vscode/
+
+# Flask cache
+.cache
