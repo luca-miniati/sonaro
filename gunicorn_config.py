@@ -1,3 +1,10 @@
+from app import app
+
+
+def when_ready(server):
+    app.app_context().push()
+
+
+bind = "0.0.0.0:5000"
 workers = 4
-bind = '0.0.0.0:5000'
-timeout = 30
+when_ready = when_ready
