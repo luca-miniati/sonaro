@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Playlist Tracks{% endblock %}
+
+{% block content %}
+<h1>Playlist Tracks</h1>
+<ul>
+    {% for track in track_list %}
+        <li>{{ track }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<img src="{{ user_img }}" style="width: 10vw">
+<h1>{{ user_display_name }}</h1>
+<a href="/history">View Listening History</a>
+<br>
+<a href="/playlists">View Playlists</a>
+<br>
+<a href="/top-artists">View Top Artists</a>
+<br>
+<a href="/top-tracks">View Top Tracks</a>
+{% endblock %}

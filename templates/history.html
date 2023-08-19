@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block content %}
+<ul>
+    {% for track in track_list %}
+    <li>{{ track }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
