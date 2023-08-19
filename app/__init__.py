@@ -8,12 +8,12 @@ app = Flask(__name__)
 app.debug = True
 app.secret_key = os.urandom(24)
 
-# client_id = os.getenv("CLIENT_ID")
-# client_secret = os.getenv("CLIENT_SECRET")
+client_id = os.getenv("CLIENT_ID")
+client_secret = os.getenv("CLIENT_SECRET")
 
 sp_oauth = SpotifyOAuth(
-    # client_id=client_id,
-    # client_secret=client_secret,
+    client_id=client_id,
+    client_secret=client_secret,
     redirect_uri='https://spotifyplayground.onrender.com/callback',
     scope=['user-library-read', 'user-read-playback-state',
            'user-read-recently-played', 'user-top-read'],
