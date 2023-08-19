@@ -12,9 +12,12 @@ app.config['FREEZER_DESTINATION'] = 'build/freezer'
 
 freezer = Freezer(app)
 
+client_id = os.getenv("SPOTIPY_CLIENT_ID")
+client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+
 sp_oauth = SpotifyOAuth(
-    client_id='3709be2b52224240a914dfdda7f22c40',
-    client_secret='ff384fe979054c219223f3d1ac8920df',
+    client_id=client_id,
+    client_secret=client_secret,
     redirect_uri='http://127.0.0.1:5000/callback',
     scope=['user-library-read', 'user-read-playback-state',
            'user-read-recently-played', 'user-top-read'],
