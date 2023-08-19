@@ -7,18 +7,19 @@ from spotipy.oauth2 import SpotifyOAuth
 app = Flask(__name__)
 app.debug = True
 app.secret_key = os.urandom(24)
-app.config['FREEZER_DESTINATION'] = 'build/freezer'
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
-sp_oauth = SpotifyOAuth(
-    client_id=client_id,
-    client_secret=client_secret,
-    redirect_uri='http://127.0.0.1:5000/callback',
-    scope=['user-library-read', 'user-read-playback-state',
-           'user-read-recently-played', 'user-top-read'],
-)
+with app.app_context():
+    sp_oauth = SpotifyOAuth(
+        client_id=client_id,
+        client_secret=client_secret,
+        redirect_uri=url_for('callback', _external=True),
+        scope=[
+            'user-library-read', 'user-read-playback-state',
+            'user-read-recently-played', 'user-top-read'],
+    )
 
 
 @app.route('/')
