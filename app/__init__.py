@@ -7,7 +7,6 @@ from spotipy.oauth2 import SpotifyOAuth
 app = Flask(__name__)
 app.debug = True
 app.secret_key = os.urandom(24)
-app.config['FREEZER_DESTINATION'] = 'build/freezer'
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
@@ -145,8 +144,3 @@ def top_tracks():
         track_list.append(item['name'] + ' - ' + item['artists'][0]['name'])
 
     return render_template('top-tracks.html', track_list=track_list)
-
-
-if __name__ == '__main__':
-    with app.app_context():
-        app.run()
