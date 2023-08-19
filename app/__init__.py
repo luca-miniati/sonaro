@@ -2,15 +2,12 @@ import os
 
 import spotipy
 from flask import Flask, redirect, render_template, request, session, url_for
-from flask_frozen import Freezer
 from spotipy.oauth2 import SpotifyOAuth
 
 app = Flask(__name__)
 app.debug = True
 app.secret_key = os.urandom(24)
 app.config['FREEZER_DESTINATION'] = 'build/freezer'
-
-freezer = Freezer(app)
 
 client_id = os.getenv("SPOTIPY_CLIENT_ID")
 client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
