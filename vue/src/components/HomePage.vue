@@ -8,19 +8,16 @@
 
 <script>
 import { v4 } from 'uuid';
-
-// const title = document.getElementById('title');
-// title.innerHTML = 'Spotify Playground';
+// import axios from 'axios';
 
 export default {
   name: 'HomePage',
   methods: {
-    getUserAuthorization() {
+    async getUserAuthorization() {
       const client_id = process.env.VUE_APP_CLIENT_ID;
       const redirect_uri = encodeURIComponent('http://localhost:8000/callback');
       const state = v4();
       const scope = 'user-read-private user-read-recently-played playlist-read-private playlist-read-collaborative user-top-read';
-
       const authorizationUrl = `https://accounts.spotify.com/authorize?` +
         `response_type=code` +
         `&client_id=${client_id}` +

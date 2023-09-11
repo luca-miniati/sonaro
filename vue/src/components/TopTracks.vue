@@ -33,8 +33,8 @@ export default {
 
         if (response.ok) {
           const trackData = await response.json();
-          this.trackData = trackData; // Update the userData state with fetched data
-          console.log(trackData); // You can log the data if needed
+          this.trackData = trackData;
+          console.log(trackData);
         } else {
           console.error("Failed to fetch user data");
         }

@@ -34,8 +34,7 @@ export default {
 
         if (response.ok) {
           const userData = await response.json();
-          this.userData = userData; // Update the userData state with fetched data
-          console.log(userData); // You can log the data if needed
+          this.userData = userData;
         } else {
           console.error("Failed to fetch user data");
         }

@@ -12,18 +12,14 @@ import { Buffer } from 'buffer';
 export default {
     name: 'CallbackHandler',
     async created() {
-        try {
-            const code = this.$route.query.code;
-            const state = this.$route.query.state;
+        const code = this.$route.query.code;
+        const state = this.$route.query.state;
 
-            this.$store.commit('SET_STATE', state);
+        this.$store.commit('SET_STATE', state);
 
-            await this.getToken(code, state);
+        await this.getToken(code, state);
 
-            this.$router.push('/findsongs');
-        } catch (error) {
-            console.error('Error processing callback:', error);
-        }
+        this.$router.push('/findsongs');
     },
     methods: {
         ...mapActions(['setAccessToken', 'setRefreshToken']),
