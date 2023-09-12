@@ -7,13 +7,135 @@
       </li>
     </ul>
   </div>
-  <div class="selected-tracks">
-    <h2>Selected Tracks</h2>
-    <ul>
-      <li v-for="track in selectedTracks" :key="track.id">
-        {{ track.name }}
-      </li>
-    </ul>
+
+  <div class="slider">
+  <label for="limit">Limit: {{ limit }}</label>
+    <input
+      type="range"
+      id="limit"
+      min="1"
+      max="100"
+      v-model="limit"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="acousticness">Acousticness: {{ acousticness }}</label>
+    <input
+      type="range"
+      id="acousticness"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="acousticness"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="danceability">Danceability: {{ danceability }}</label>
+    <input
+      type="range"
+      id="danceability"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="danceability"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="energy">Energy: {{ energy }}</label>
+    <input
+      type="range"
+      id="energy"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="energy"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="instrumentalness">Instrumentalness: {{ instrumentalness }}</label>
+    <input
+      type="range"
+      id="instrumentalness"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="instrumentalness"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="liveness">Liveness: {{ liveness }}</label>
+    <input
+      type="range"
+      id="liveness"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="liveness"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="loudness">Loudness: {{ loudness }}</label>
+    <input
+      type="range"
+      id="loudness"
+      step="0.01"
+      min="-60"
+      max="0"
+      v-model="loudness"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="popularity">Popularity: {{ popularity }}</label>
+    <input
+      type="range"
+      id="popularity"
+      min="0"
+      max="100"
+      v-model="popularity"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="speechiness">Speechiness: {{ speechiness }}</label>
+    <input
+      type="range"
+      id="speechiness"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="speechiness"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="tempo">Tempo: {{ tempo }}</label>
+    <input
+      type="range"
+      id="tempo"
+      step="1"
+      min="60"
+      max="200"
+      v-model="tempo"
+    />
+  </div>
+
+  <div class="slider">
+    <label for="valence">Valence: {{ valence }}</label>
+    <input
+      type="range"
+      id="valence"
+      step="0.01"
+      min="0"
+      max="1"
+      v-model="valence"
+    />
   </div>
   <button @click="fetchRecommendations">Get Recommendations</button>
   <div v-if="recommendedTracks.length > 0" class="recommended-tracks">
@@ -36,6 +158,18 @@ export default {
       searchResults: [],
       selectedTracks: [],
       recommendedTracks: [],
+      limit: 5,
+      seed_tracks: '',
+      acousticness: 0.5,
+      danceability: 0.5,
+      energy: 0.5,
+      instrumentalness: 0.5,
+      liveness: 0.5,
+      loudness: 0,
+      popularity: 50,
+      speechiness: 0.5,
+      tempo: 120,
+      valence: 0.5,
     };
   },
   methods: {
