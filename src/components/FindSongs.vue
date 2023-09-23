@@ -9,7 +9,9 @@
         </button>
         <ul v-if="searchResults.length > 0" class="dropdown">
           <li v-for="result in searchResults" :key="result.id" @click="selectTrack(result)">
-            {{ result.name }}
+            <img :src="result.album.images[0].url">
+            <p class="song-name">{{ result.name }}</p>
+            <p v-for="artist in result.artists" :key="artist.id" class="artist-name">{{ artist.name }}</p>
           </li>
         </ul>
       </div>
@@ -269,6 +271,7 @@ export default {
       elem.style.borderRadius = "5px";
       elem.style.color = "#ffffff";
       elem.style.textIndent = "10px";
+      elem.classList.add("search-input");
 
       elem.addEventListener("input", (event) => {
         this.onInputChange(event.target.value);
@@ -277,9 +280,19 @@ export default {
       return elem;
     },
     selectTrack(track) {
+      console.log(track)
       this.selectedTracks.push(track);
       this.searchResults = [];
-      this.$refs.searchInput.value = "";
+
+      const searchInput = document.querySelector(".search-input")
+      searchInput.value = "";
+
+      this.searching = false;
+
+      const button = document.querySelector(".add-songs-button");
+      button.querySelector("img").style.display = "inline";
+      button.querySelector("p").style.display = "inline";
+      button.removeChild(searchInput);
     },
     async getRecommendations() {
       const trackIds = this.selectedTracks.map(track => track.id).join(",");
@@ -381,5 +394,8 @@ export default {
 
 .dropdown li:hover {
   background-color: #f0f0f0;
+}
+.dropdown img {
+  height: 4vh;
 }
 </style>
