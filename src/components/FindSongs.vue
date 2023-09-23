@@ -171,6 +171,7 @@
   
 <script>
 import { mapGetters } from "vuex";
+import axios from 'axios';
 
 export default {
   name: "FindTracks",
@@ -204,13 +205,32 @@ export default {
         button.querySelector("img").style.display = "none";
         button.querySelector("p").style.display = "none";
         button.appendChild(searchInput);
-        searchInput.focus(); 
+        searchInput.focus();
+        this.searching = true;
       }
     },
     async onInputChange(query) {
       if (query.length === 0) {
         this.searchResults = [];
         return;
+      }
+
+      const currentTime = new Date().getTime();
+      if(currentTime >= this.$store.getters.tokenExpiration) {
+        const refreshOptions = {
+        url: '/refresh_token',
+        params: {
+          refresh_token: this.$store.getters.refreshToken
+        }
+      }
+
+      axios.get(refreshOptions.url, {params: refreshOptions.params})
+        .then(response => {
+          this.$store.commit('SET_ACCESS_TOKEN', response.data.access_token); 
+
+          const expiration = new Date().getTime() + response.data.expires_in * 1000;
+          this.$store.commit('SET_TOKEN_EXPIRATION', expiration);
+        })
       }
 
       const url = `https://api.spotify.com/v1/search?` +

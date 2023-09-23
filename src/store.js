@@ -4,6 +4,7 @@ const store = createStore({
   state: {
     accessToken: null,
     refreshToken: null,
+    tokenExpiration: null,
     state: null,
   },
   mutations: {
@@ -12,6 +13,9 @@ const store = createStore({
     },
     SET_REFRESH_TOKEN(state, data) {
       state.refreshToken = data;
+    },
+    SET_TOKEN_EXPIRATION(state, data) {
+      state.tokenExpiration = data;
     },
     SET_STATE(state, data) {
       state.state = data;
@@ -24,6 +28,9 @@ const store = createStore({
     setRefreshToken({ commit }, data) {
       commit('SET_REFRESH_TOKEN', data);
     },
+    setTokenExpiration({ commit }, data) {
+      commit('SET_TOKEN_EXPIRATION', data);
+    },
     setState({ commit }, data) {
       commit('SET_STATE', data);
     },
@@ -34,6 +41,9 @@ const store = createStore({
     },
     getRefreshToken(state) {
       return state.refreshToken;
+    },
+    getTokenExpiration(state) {
+      return state.tokenExpiration;
     },
     getState(state) {
       return state.state;
