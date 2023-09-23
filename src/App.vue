@@ -1,13 +1,19 @@
 <template>
   <div>
     <head id="title">
-      <link rel="icon" href="@/assets/favicon.png" type="image/png">
+      <link rel="icon" href="@/assets/logo.png" type="image/png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
       <nav>
         <a href="/">
-          <img src="@/assets/favicon.png" alt="Logo">
-          <h1>Spotify Playground</h1>
+          <img src="@/assets/logo.png" alt="Logo">
+          <h1>Sonaro</h1>
+        </a>
+        <a>
+          <img src="@/assets/menu.png" alt="Menu">
         </a>
       </nav>
       <main>
@@ -28,53 +34,37 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
-  background-color: #333;
-  color: #f0f0f0;
-}
-
-a {
-  color: white;
+  background-color: #303030;
 }
 
 nav {
-  background-color: #333;
-  color: white;
-  padding: 0;
+  background-color: #202020;
   height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: left;
-  border-bottom: 0.5px solid white;
 }
 
 nav a {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  color: white;
-  padding: 0 1.5vw;
   height: inherit;
+  color: white;
 }
 
 nav img {
   max-height: 8vh;
-}
-
-nav a:first-child {
-  margin-right: auto;
+  padding: 0 2vh;
 }
 
 nav a:hover {
   background-color: #1c1c1c;
-}
-
-main {
-  padding: 3vw;
 }
 </style>
 

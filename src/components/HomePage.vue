@@ -1,17 +1,30 @@
 <template>
   <div class="homepage">
-    <h2>Welcome to Spotify Playground!</h2>
-    <p>Discover personalized music recommendations based on your preferences.</p>
-    <a @click=getUserAuthorization class="login-button">Log In with Spotify</a>
+    <div class="typewriter-box">
+      <h2>Music recommendations,<br>fully <span ref="text"></span></h2>
+    </div>
+    <div class="login-button">
+      <img src="@/assets/spotify.png">
+      <a @click=getUserAuthorization>Log In with Spotify</a>
+    </div>
   </div>
 </template>
 
 <script>
 import { v4 } from 'uuid';
-// import axios from 'axios';
 
 export default {
   name: 'HomePage',
+  data() {
+    return {
+      words: ['customized.', 'tailored.', 'personalized.', 'curated.'],
+      wordIndex: 0,
+      charIndex: 0,
+    }
+  },
+  mounted() {
+    this.typeText();
+  },
   methods: {
     async getUserAuthorization() {
       const client_id = process.env.VUE_APP_CLIENT_ID;
@@ -26,6 +39,36 @@ export default {
         `&scope=${scope}`;
 
       window.location.href = authorizationUrl;
+    },
+    typeText() {
+      const word = this.words[this.wordIndex];
+      // word in progress
+      if (this.charIndex < (word.length * 2)) {
+        // word adding
+        if (this.charIndex < (word.length)) {
+          this.$refs.text.innerText += word.charAt(this.charIndex);
+          this.charIndex++;
+          if (this.charIndex == word.length) {
+            setTimeout(this.typeText, 500) 
+          } else {
+            setTimeout(this.typeText, 100) 
+          }
+        // word subtracting
+        } else {
+          this.$refs.text.innerText = this.$refs.text.innerText.slice(0, -1);
+          this.charIndex++;
+          setTimeout(this.typeText, 100)
+        }
+      // word completed
+      } else {
+        this.charIndex = 0;
+        this.wordIndex++;
+        this.$refs.text.innerText = "";
+        if (this.wordIndex >= this.words.length) {
+          this.wordIndex = 0;
+        }
+        setTimeout(this.typeText, 100);
+      }
     }
   }
 };
@@ -33,30 +76,44 @@ export default {
 
 <style scoped>
 .homepage {
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh; /* Make the container cover the viewport height */
-  text-align: center;
+  height: 70vh;
 }
 
 .login-button {
-  background-color: #e246ab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0D0D0D;
   color: white;
   text-decoration: none;
-  padding: 15px 30px; /* Add padding horizontally */
-  border-radius: 30px;
+  width: 300px;
+  height: 10%;
+  border-radius: 15px;
   font-weight: bold;
-  transition: background-color 0.2s ease-in-out; /* Add a smooth transition */
+}
+
+.login-button img {
+  height: 3vh;
+  padding-right: 20px;
 }
 
 .login-button:hover {
-  background-color: #c42c91; /* Change background color on hover */
+  background-color: #171717;
 }
 
-h2, p, .login-button {
+.typewriter-box {
+  width: 70%;
+  text-align: center;
   margin-bottom: 30px;
+}
+
+.typewriter-box span {
+  color: #CCA4FF;
 }
 </style>
 

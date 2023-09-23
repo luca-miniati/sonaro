@@ -6,7 +6,7 @@ import TopTracks from './components/TopTracks.vue';
 // import TopArtists from './components/TopArtists.vue';
 
 const routes = [
-  { path: '/', component: HomePage, meta: { title: 'Spotify Playground' }},
+  { path: '/', component: HomePage, meta: { title: 'Sonaro' }},
   { path: '/callback', component: CallbackHandler },
   { path: '/findsongs', component: FindSongs },
   { path: '/toptracks', component: TopTracks },
@@ -18,7 +18,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-  document.title = to.meta?.title ?? 'Spotify Playground'
+  document.title = to.meta?.title ?? 'Sonaro'
 })
 
 export default router;
