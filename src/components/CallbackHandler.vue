@@ -50,7 +50,7 @@ export default {
             this.setAccessToken(response.data.access_token);
             this.setRefreshToken(response.data.refresh_token);
 
-            const expiration = (new Date().getTime() / 1000) + response.data.expires_in;
+            const expiration = new Date().getTime() + response.data.expires_in * 1000;
             this.$store.commit('SET_TOKEN_EXPIRATION', expiration);
             console.log(expiration);
         },

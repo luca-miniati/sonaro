@@ -36,8 +36,53 @@
       </div>
     </div>
     <div class="outer-section">
-      <p>Settings</p>
-
+      <p class="section-title">Settings</p>
+      <div class="inner-section">
+        <div class="slider">
+          <label for="limit">Limit: {{ limit }}</label>
+          <input type="range" id="limit" min="1" max="100" v-model="limit" />
+        </div>
+        <div class="slider">
+          <label for="acousticness">Acousticness: {{ acousticness }}</label>
+          <input type="range" id="acousticness" step="0.01" min="0" max="1" v-model="acousticness" />
+        </div>
+        <div class="slider">
+          <label for="danceability">Danceability: {{ danceability }}</label>
+          <input type="range" id="danceability" step="0.01" min="0" max="1" v-model="danceability" />
+        </div>
+        <div class="slider">
+          <label for="energy">Energy: {{ energy }}</label>
+          <input type="range" id="energy" step="0.01" min="0" max="1" v-model="energy" />
+        </div>
+        <div class="slider">
+          <label for="instrumentalness">Instrumentalness: {{ instrumentalness }}</label>
+          <input type="range" id="instrumentalness" step="0.01" min="0" max="1" v-model="instrumentalness" />
+        </div>
+        <div class="slider">
+          <label for="liveness">Liveness: {{ liveness }}</label>
+          <input type="range" id="liveness" step="0.01" min="0" max="1" v-model="liveness" />
+        </div>
+        <div class="slider">
+          <label for="loudness">Loudness: {{ loudness }}</label>
+          <input type="range" id="loudness" step="0.01" min="-60" max="0" v-model="loudness" />
+        </div>
+        <div class="slider">
+          <label for="popularity">Popularity: {{ popularity }}</label>
+          <input type="range" id="popularity" min="0" max="100" v-model="popularity" />
+        </div>
+        <div class="slider">
+          <label for="speechiness">Speechiness: {{ speechiness }}</label>
+          <input type="range" id="speechiness" step="0.01" min="0" max="1" v-model="speechiness" />
+        </div>
+        <div class="slider">
+          <label for="tempo">Tempo: {{ tempo }}</label>
+          <input type="range" id="tempo" step="1" min="60" max="200" v-model="tempo" />
+        </div>
+        <div class="slider">
+          <label for="valence">Valence: {{ valence }}</label>
+          <input type="range" id="valence" step="0.01" min="0" max="1" v-model="valence" />
+        </div>
+      </div>
     </div>
 
     <div class="get-recommendations-button">
@@ -45,141 +90,6 @@
       <a @click=getRecommendations>Get Recommendations</a>
     </div>
   </div>
-
-  <div class="sliders">
-
-    <div class="slider">
-      <label for="limit">Limit: {{ limit }}</label>
-        <input
-          type="range"
-          id="limit"
-          min="1"
-          max="100"
-          v-model="limit"
-        />
-      </div>
-
-      <div class="slider">
-    <label for="acousticness">Acousticness: {{ acousticness }}</label>
-      <input
-        type="range"
-        id="acousticness"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="acousticness"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="danceability">Danceability: {{ danceability }}</label>
-      <input
-        type="range"
-        id="danceability"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="danceability"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="energy">Energy: {{ energy }}</label>
-      <input
-        type="range"
-        id="energy"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="energy"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="instrumentalness">Instrumentalness: {{ instrumentalness }}</label>
-      <input
-        type="range"
-        id="instrumentalness"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="instrumentalness"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="liveness">Liveness: {{ liveness }}</label>
-      <input
-        type="range"
-        id="liveness"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="liveness"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="loudness">Loudness: {{ loudness }}</label>
-      <input
-        type="range"
-        id="loudness"
-        step="0.01"
-        min="-60"
-        max="0"
-        v-model="loudness"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="popularity">Popularity: {{ popularity }}</label>
-      <input
-        type="range"
-        id="popularity"
-        min="0"
-        max="100"
-        v-model="popularity"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="speechiness">Speechiness: {{ speechiness }}</label>
-      <input
-        type="range"
-        id="speechiness"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="speechiness"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="tempo">Tempo: {{ tempo }}</label>
-      <input
-        type="range"
-        id="tempo"
-        step="1"
-        min="60"
-        max="200"
-        v-model="tempo"
-      />
-    </div>
-
-    <div class="slider">
-      <label for="valence">Valence: {{ valence }}</label>
-      <input
-        type="range"
-        id="valence"
-        step="0.01"
-        min="0"
-        max="1"
-        v-model="valence"
-      />
-    </div>
-  </div>
-
-  <button @click="fetchRecommendations">Get Recommendations</button>
   <div v-if="recommendedTracks.length > 0" class="recommended-tracks">
     <h2>Recommended Tracks</h2>
     <ul>
@@ -193,6 +103,7 @@
 <script>
 import { mapGetters } from "vuex";
 import axios from 'axios';
+import { Buffer } from 'buffer';
 
 export default {
   name: "FindTracks",
@@ -217,7 +128,7 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getAccessToken", "getRefreshToken"]),
+    ...mapGetters(["getAccessToken", "getRefreshToken", "getTokenExpiration"]),
     onClick () {
       if (!this.searching) {
         let searchInput = this.searchInput();
@@ -237,21 +148,27 @@ export default {
       }
 
       const currentTime = new Date().getTime();
-      if(currentTime >= this.$store.getters.tokenExpiration) {
+      console.log("current: " + currentTime);
+      console.log("exp: " + this.getTokenExpiration());
+      console.log("diff: " + (this.getTokenExpiration() - currentTime))
+      if(currentTime >= this.getTokenExpiration()) {
         const clientId = process.env.VUE_APP_CLIENT_ID;
         const clientSecret = process.env.VUE_APP_CLIENT_SECRET;
         const refreshOptions = {
-          url: 'https://accounts.spotify.com/api/token',
-          headers: { 'Authorization': 'Basic ' + (new Buffer.from(clientId + ':' + clientSecret).toString('base64')) },
-          form: {
+          url: 'https://accounts.spotify.com/api/token?',
+          headers: {
+            'Authorization': `Basic ${(new Buffer.from(clientId + ':' + clientSecret).toString('base64'))}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          params: {
             grant_type: 'refresh_token',
             refresh_token: this.getAccessToken()
-          },
-          json: true
-        }
+          }
+        };
 
-        axios.get(refreshOptions.url, {params: refreshOptions.params})
+        await axios.get(refreshOptions.url, {params: refreshOptions.params})
           .then(response => {
+            console.log("access token set to: " + response.data.access_token);
             this.$store.commit("SET_ACCESS_TOKEN", response.data.access_token); 
 
             const expiration = new Date().getTime() + response.data.expires_in / 1000;
@@ -362,7 +279,7 @@ export default {
   width: 90%;
   margin: 1.5vh auto;
   overflow: scroll;
-  height: 30vh;
+  height: 27vh;
 }
 .section-title {
   font-size: x-large;
@@ -433,7 +350,7 @@ export default {
 }
 
 .selected-tracks li {
-  padding: 2% 0;
+  padding: 0.5vh 0;
 }
 .dropdown {
   list-style: none;
@@ -444,7 +361,7 @@ export default {
 }
 
 .dropdown li {
-  padding: 1%;
+  padding: 0.5vh;
   cursor: pointer;
 }
 .song-name {
