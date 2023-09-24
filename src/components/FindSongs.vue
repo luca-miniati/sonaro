@@ -1,17 +1,36 @@
 <template>
   <div class="get-recommendations">
     <div class="outer-section">
+      <p class="section-title">Seed Tracks</p>
       <div class="inner-section">
-        <p>Seed Tracks</p>
         <button class="add-songs-button" @click="onClick">
           <img src="@/assets/addsongs.png">
           <p>Add Songs</p>
         </button>
         <ul v-if="searchResults.length > 0" class="dropdown">
           <li v-for="result in searchResults" :key="result.id" @click="selectTrack(result)">
-            <img :src="result.album.images[0].url">
-            <p class="song-name">{{ result.name }}</p>
-            <p v-for="artist in result.artists" :key="artist.id" class="artist-name">{{ artist.name }}</p>
+            <div class="song">
+              <img :src="result.album.images[0].url">
+              <div class="song-info">
+                <p class="song-name">{{ result.name }}</p>
+                <div class="artist-info">
+                  <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul v-if="selectedTracks.length > 0" class="selected-tracks">
+          <li v-for="result in selectedTracks" :key="result.id" @click="selectTrack(result)">
+            <div class="song">
+              <img :src="result.album.images[0].url">
+              <div class="song-info">
+                <p class="song-name">{{ result.name }}</p>
+                <div class="artist-info">
+                  <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -198,7 +217,7 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getAccessToken"]),
+    ...mapGetters(["getAccessToken", "getRefreshToken"]),
     onClick () {
       if (!this.searching) {
         let searchInput = this.searchInput();
@@ -219,20 +238,25 @@ export default {
 
       const currentTime = new Date().getTime();
       if(currentTime >= this.$store.getters.tokenExpiration) {
+        const clientId = process.env.VUE_APP_CLIENT_ID;
+        const clientSecret = process.env.VUE_APP_CLIENT_SECRET;
         const refreshOptions = {
-        url: '/refresh_token',
-        params: {
-          refresh_token: this.$store.getters.refreshToken
+          url: 'https://accounts.spotify.com/api/token',
+          headers: { 'Authorization': 'Basic ' + (new Buffer.from(clientId + ':' + clientSecret).toString('base64')) },
+          form: {
+            grant_type: 'refresh_token',
+            refresh_token: this.getAccessToken()
+          },
+          json: true
         }
-      }
 
-      axios.get(refreshOptions.url, {params: refreshOptions.params})
-        .then(response => {
-          this.$store.commit('SET_ACCESS_TOKEN', response.data.access_token); 
+        axios.get(refreshOptions.url, {params: refreshOptions.params})
+          .then(response => {
+            this.$store.commit("SET_ACCESS_TOKEN", response.data.access_token); 
 
-          const expiration = new Date().getTime() + response.data.expires_in * 1000;
-          this.$store.commit('SET_TOKEN_EXPIRATION', expiration);
-        })
+            const expiration = new Date().getTime() + response.data.expires_in / 1000;
+            this.$store.commit("SET_TOKEN_EXPIRATION", expiration);
+          })
       }
 
       const url = `https://api.spotify.com/v1/search?` +
@@ -257,6 +281,7 @@ export default {
         }
       } else {
         this.searchResults = [];
+        console.log("access token: " + this.getAccessToken());
       }
     },
     searchInput() {
@@ -280,7 +305,6 @@ export default {
       return elem;
     },
     selectTrack(track) {
-      console.log(track)
       this.selectedTracks.push(track);
       this.searchResults = [];
 
@@ -322,6 +346,7 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   height: 90vh;
+  color: #FFF;
 }
 .outer-section {
   height: 40%;
@@ -336,10 +361,12 @@ export default {
   align-items: flex-start;
   width: 90%;
   margin: 1.5vh auto;
+  overflow: scroll;
+  height: 30vh;
 }
-.inner-section p {
-  color: #FFF;
+.section-title {
   font-size: x-large;
+  margin: 1.5vh;
 }
 .add-songs-button {
   width: 90%;
@@ -349,9 +376,10 @@ export default {
   align-items: center;
   background-color: #202020;
   border: none;
+  color: #FFF;
 }
 .add-songs-button img {
-  height: 4vh;
+  height: 5vh;
   padding-right: 4%;
 }
 .add-songs-button p {
@@ -362,7 +390,6 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: #0D0D0D;
-  color: white;
   text-decoration: none;
   width: 300px;
   height: 10%;
@@ -378,24 +405,61 @@ export default {
 .get-recommendations-button:hover {
   background-color: #171717;
 }
-.dropdown {
+.song {
+  display: flex;
+  flex-direction: row;
+}
+
+.song img {
+  height: 5vh;
+  padding-right: 3%;
+}
+.song-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-items: center;
+}
+.artist-info {
+  display: flex;
+  flex-direction: row;
+}
+.selected-tracks {
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid #ccc;
-  max-height: 150px;
-  overflow-y: auto;
+  width: 100%;
+}
+
+.selected-tracks li {
+  padding: 2% 0;
+}
+.dropdown {
+  float: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #0D0D0D;
+  width: 100%;
 }
 
 .dropdown li {
-  padding: 5px;
+  padding: 1%;
   cursor: pointer;
 }
-
+.song-name {
+  font-size: medium;
+  display: inline;
+  white-space: nowrap;
+}
+.artist-name {
+  font-size: small;
+  display: inline;
+  color: #C0C0C0;
+  white-space: nowrap;
+}
 .dropdown li:hover {
   background-color: #f0f0f0;
-}
-.dropdown img {
-  height: 4vh;
 }
 </style>
