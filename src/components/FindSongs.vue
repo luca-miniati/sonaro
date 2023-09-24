@@ -436,7 +436,6 @@ export default {
   padding: 2% 0;
 }
 .dropdown {
-  float: left;
   list-style: none;
   padding: 0;
   margin: 0;
