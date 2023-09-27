@@ -3,29 +3,32 @@
     <div class="outer-section">
       <p class="section-title">Seed Tracks</p>
       <div class="inner-section">
-        <button class="add-songs-button" @click="onClick">
-          <img src="@/assets/addsongs.png">
-          <p>Add Songs</p>
+        <button class="add-tracks-button" @click="onClick">
+          <img src="@/assets/addtracks.png">
+          <p>Add Tracks</p>
         </button>
         <ul v-if="searchResults.length > 0" class="dropdown">
           <li v-for="result in searchResults" :key="result.id" @click="selectTrack(result)">
-            <div class="song">
+            <div class="track">
               <img :src="result.album.images[0].url">
-              <div class="song-info">
-                <p class="song-name">{{ result.name }}</p>
+              <div class="track-info">
+                <p class="track-name">{{ result.name }}</p>
                 <div class="artist-info">
                   <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
                 </div>
               </div>
+              <a @click="removeTrack(result)" class="remove-track">
+                <img src="@/assets/removetrack.png">
+              </a>
             </div>
           </li>
         </ul>
         <ul v-if="selectedTracks.length > 0" class="selected-tracks">
           <li v-for="result in selectedTracks" :key="result.id" @click="selectTrack(result)">
-            <div class="song">
+            <div class="track">
               <img :src="result.album.images[0].url">
-              <div class="song-info">
-                <p class="song-name">{{ result.name }}</p>
+              <div class="track-info">
+                <p class="track-name">{{ result.name }}</p>
                 <div class="artist-info">
                   <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
                 </div>
@@ -132,7 +135,7 @@ export default {
     onClick () {
       if (!this.searching) {
         let searchInput = this.searchInput();
-        const button = document.querySelector(".add-songs-button");
+        const button = document.querySelector(".add-tracks-button");
 
         button.querySelector("img").style.display = "none";
         button.querySelector("p").style.display = "none";
@@ -149,7 +152,7 @@ export default {
 
       const currentTime = new Date().getTime();
       console.log("current: " + currentTime);
-      console.log("exp: " + this.getTokenExpiration());
+      console.log("expiration: " + this.getTokenExpiration());
       console.log("diff: " + (this.getTokenExpiration() - currentTime))
       if(currentTime >= this.getTokenExpiration()) {
         const clientId = process.env.VUE_APP_CLIENT_ID;
@@ -230,7 +233,7 @@ export default {
 
       this.searching = false;
 
-      const button = document.querySelector(".add-songs-button");
+      const button = document.querySelector(".add-tracks-button");
       button.querySelector("img").style.display = "inline";
       button.querySelector("p").style.display = "inline";
       button.removeChild(searchInput);
@@ -271,7 +274,6 @@ export default {
   border-radius: 15px;
   background-color: #202020;
 }
-
 .inner-section {
   display: flex;
   flex-direction: column;
@@ -285,7 +287,7 @@ export default {
   font-size: x-large;
   margin: 1.5vh;
 }
-.add-songs-button {
+.add-tracks-button {
   width: 90%;
   height: 5vh;
   display: flex;
@@ -295,11 +297,11 @@ export default {
   border: none;
   color: #FFF;
 }
-.add-songs-button img {
+.add-tracks-button img {
   height: 5vh;
   padding-right: 4%;
 }
-.add-songs-button p {
+.add-tracks-button p {
   font-size: medium;
 }
 .get-recommendations-button {
@@ -322,16 +324,19 @@ export default {
 .get-recommendations-button:hover {
   background-color: #171717;
 }
-.song {
+.track {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
-
-.song img {
+.track:last-child {
+  justify-self: flex-end;
+}
+.track img {
   height: 5vh;
   padding-right: 3%;
 }
-.song-info {
+.track-info {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -364,7 +369,7 @@ export default {
   padding: 0.5vh;
   cursor: pointer;
 }
-.song-name {
+.track-name {
   font-size: medium;
   display: inline;
   white-space: nowrap;
