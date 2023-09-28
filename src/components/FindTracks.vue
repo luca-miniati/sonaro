@@ -17,14 +17,11 @@
                   <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
                 </div>
               </div>
-              <a @click="removeTrack(result)" class="remove-track">
-                <img src="@/assets/removetrack.png">
-              </a>
             </div>
           </li>
         </ul>
         <ul v-if="selectedTracks.length > 0" class="selected-tracks">
-          <li v-for="result in selectedTracks" :key="result.id" @click="selectTrack(result)">
+          <li v-for="result in selectedTracks" :key="result.id">
             <div class="track">
               <img :src="result.album.images[0].url">
               <div class="track-info">
@@ -33,6 +30,9 @@
                   <p class="artist-name">{{ result.artists.map(a => a.name).join(', ') }}</p>
                 </div>
               </div>
+              <a @click="removeTrack(result)" class="remove-track">
+                <img src="@/assets/removetrack.png">
+              </a>
             </div>
           </li>
         </ul>
@@ -41,48 +41,48 @@
     <div class="outer-section">
       <p class="section-title">Settings</p>
       <div class="inner-section">
-        <div class="slider">
-          <label for="limit">Limit: {{ limit }}</label>
-          <input type="range" id="limit" min="1" max="100" v-model="limit" />
+        <div class="limit">
+          <label for="limit">Limit</label>
+          <input id="limit" min="1" max="100" v-model="limit"/>
         </div>
         <div class="slider">
-          <label for="acousticness">Acousticness: {{ acousticness }}</label>
+          <label for="acousticness">Acousticness</label>
           <input type="range" id="acousticness" step="0.01" min="0" max="1" v-model="acousticness" />
         </div>
         <div class="slider">
-          <label for="danceability">Danceability: {{ danceability }}</label>
+          <label for="danceability">Danceability</label>
           <input type="range" id="danceability" step="0.01" min="0" max="1" v-model="danceability" />
         </div>
         <div class="slider">
-          <label for="energy">Energy: {{ energy }}</label>
+          <label for="energy">Energy</label>
           <input type="range" id="energy" step="0.01" min="0" max="1" v-model="energy" />
         </div>
         <div class="slider">
-          <label for="instrumentalness">Instrumentalness: {{ instrumentalness }}</label>
+          <label for="instrumentalness">Instrumentalness</label>
           <input type="range" id="instrumentalness" step="0.01" min="0" max="1" v-model="instrumentalness" />
         </div>
         <div class="slider">
-          <label for="liveness">Liveness: {{ liveness }}</label>
+          <label for="liveness">Liveness</label>
           <input type="range" id="liveness" step="0.01" min="0" max="1" v-model="liveness" />
         </div>
         <div class="slider">
-          <label for="loudness">Loudness: {{ loudness }}</label>
-          <input type="range" id="loudness" step="0.01" min="-60" max="0" v-model="loudness" />
+          <label for="loudness">Loudness</label>
+          <input type="range" id="loudness" step="1" min="0" max="100" v-model="loudness" />
         </div>
         <div class="slider">
-          <label for="popularity">Popularity: {{ popularity }}</label>
+          <label for="popularity">Popularity</label>
           <input type="range" id="popularity" min="0" max="100" v-model="popularity" />
         </div>
         <div class="slider">
-          <label for="speechiness">Speechiness: {{ speechiness }}</label>
+          <label for="speechiness">Speechiness</label>
           <input type="range" id="speechiness" step="0.01" min="0" max="1" v-model="speechiness" />
         </div>
         <div class="slider">
-          <label for="tempo">Tempo: {{ tempo }}</label>
+          <label for="tempo">Tempo</label>
           <input type="range" id="tempo" step="1" min="60" max="200" v-model="tempo" />
         </div>
         <div class="slider">
-          <label for="valence">Valence: {{ valence }}</label>
+          <label for="valence">Valence</label>
           <input type="range" id="valence" step="0.01" min="0" max="1" v-model="valence" />
         </div>
       </div>
@@ -116,7 +116,7 @@ export default {
       searchResults: [],
       selectedTracks: [],
       recommendedTracks: [],
-      limit: 5,
+      limit: 50,
       seed_tracks: "",
       acousticness: 0.5,
       danceability: 0.5,
@@ -238,6 +238,9 @@ export default {
       button.querySelector("p").style.display = "inline";
       button.removeChild(searchInput);
     },
+    removeTrack(track) {
+      this.selectedTracks.splice(this.selectedTracks.indexOf(track), 1);
+    },
     async getRecommendations() {
       const trackIds = this.selectedTracks.map(track => track.id).join(",");
 
@@ -260,127 +263,5 @@ export default {
 </script>
 
 <style scoped>
-.get-recommendations {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 90vh;
-  color: #FFF;
-}
-.outer-section {
-  height: 40%;
-  width: 90%;
-  border-radius: 15px;
-  background-color: #202020;
-}
-.inner-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 90%;
-  margin: 1.5vh auto;
-  overflow: scroll;
-  height: 27vh;
-}
-.section-title {
-  font-size: x-large;
-  margin: 1.5vh;
-}
-.add-tracks-button {
-  width: 90%;
-  height: 5vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: #202020;
-  border: none;
-  color: #FFF;
-}
-.add-tracks-button img {
-  height: 5vh;
-  padding-right: 4%;
-}
-.add-tracks-button p {
-  font-size: medium;
-}
-.get-recommendations-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #0D0D0D;
-  text-decoration: none;
-  width: 300px;
-  height: 10%;
-  border-radius: 15px;
-  font-weight: bold;
-}
-
-.get-recommendations-button img {
-  height: 3vh;
-  padding-right: 20px;
-}
-
-.get-recommendations-button:hover {
-  background-color: #171717;
-}
-.track {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.track:last-child {
-  justify-self: flex-end;
-}
-.track img {
-  height: 5vh;
-  padding-right: 3%;
-}
-.track-info {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  justify-items: center;
-}
-.artist-info {
-  display: flex;
-  flex-direction: row;
-}
-.selected-tracks {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
-.selected-tracks li {
-  padding: 0.5vh 0;
-}
-.dropdown {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #0D0D0D;
-  width: 100%;
-}
-
-.dropdown li {
-  padding: 0.5vh;
-  cursor: pointer;
-}
-.track-name {
-  font-size: medium;
-  display: inline;
-  white-space: nowrap;
-}
-.artist-name {
-  font-size: small;
-  display: inline;
-  color: #C0C0C0;
-  white-space: nowrap;
-}
-.dropdown li:hover {
-  background-color: #f0f0f0;
-}
+@import '@/components/findtracks.css';
 </style>

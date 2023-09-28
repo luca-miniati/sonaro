@@ -19,7 +19,7 @@ export default {
 
         await this.getToken(code, state);
 
-        this.$router.push('/findsongs');
+        this.$router.push('/findtracks');
     },
     methods: {
         ...mapActions(['setAccessToken', 'setRefreshToken']),

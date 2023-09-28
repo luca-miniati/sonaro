@@ -1,0 +1,151 @@
+.get-recommendations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 90vh;
+  color: #FFF;
+}
+.outer-section {
+  height: 40%;
+  width: 90%;
+  border-radius: 15px;
+  background-color: #202020;
+}
+.inner-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+  margin: 1.5vh auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 27vh;
+}
+.section-title {
+  font-size: x-large;
+  margin: 1.5vh;
+}
+.add-tracks-button {
+  width: 90%;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #202020;
+  border: none;
+  color: #FFF;
+}
+.add-tracks-button img {
+  height: 5vh;
+  padding-right: 4%;
+}
+.add-tracks-button p {
+  font-size: medium;
+}
+.get-recommendations-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0D0D0D;
+  text-decoration: none;
+  width: 300px;
+  height: 10%;
+  border-radius: 15px;
+  font-weight: bold;
+}
+.get-recommendations-button img {
+  height: 3vh;
+  padding-right: 20px;
+}
+.get-recommendations-button:hover {
+  background-color: #171717;
+}
+.track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.track a {
+  margin-left: auto;
+}
+.track img {
+  height: 5vh;
+  padding-right: 3%;
+}
+.track-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-items: center;
+}
+.artist-info {
+  display: flex;
+  flex-direction: row;
+}
+.selected-tracks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.selected-tracks li {
+  padding: 0.5vh 0;
+}
+.dropdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #0D0D0D;
+  width: 100%;
+}
+.dropdown li {
+  padding: 0.5vh;
+  cursor: pointer;
+}
+.track-name {
+  font-size: medium;
+  display: inline;
+  white-space: nowrap;
+}
+.artist-name {
+  font-size: small;
+  display: inline;
+  color: #C0C0C0;
+  white-space: nowrap;
+}
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+.limit input {
+  width: 25%;
+  height: 3vh;
+  margin-left: 5%;
+  background-color: #0D0D0D;
+  border-radius: 5px;
+  color: #FFF;
+  border: none;
+  text-indent: 15%;
+}
+.limit input:focus {
+  outline: none;
+}
+.slider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 1vh 0;
+}
+input[type=range]::-webkit-slider-thumb {
+  background-color: red;
+}
+/* input[type=range]::-webkit-slider-runnable-track {
+  background-color: yellow;
+} */
+input[type=range]::-webkit-slider-progress {
+  background-color: blue; 
+}
+input[type=range]:focus::-webkit-slider-thumb {
+  background-color: green;
+}
