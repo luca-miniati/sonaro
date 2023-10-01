@@ -54,6 +54,7 @@ nav a {
   height: inherit;
   color: white;
   margin: 0 auto;
+  padding: 0 10vw;
 }
 
 nav img {

@@ -53,7 +53,7 @@
               <img src="@/assets/settingsinfo.png">
             </a>
           </div>
-          <p class="settings-info-text" :id="key">{{ settingsInfo[key] }}<br>Range: {{ settingsLowerBounds[key] }}-{{
+          <p class="settings-info-text" :id="key + '-info-text'">{{ settingsInfo[key] }}<br>Range: {{ settingsLowerBounds[key] }}-{{
             settingsUpperBounds[key] }}</p>
           <p :id="key + '-outside-range'">Enter a value between {{ settingsLowerBounds[key] }} and {{
             settingsUpperBounds[key] }}</p>
@@ -262,10 +262,10 @@ export default {
       }
     },
     toggleSettingsInfo(id) {
-      if (document.querySelector('#' + id).style.display == 'inline-block') {
-        document.querySelector('#' + id).style.display = 'none'
+      if (document.querySelector('#' + id + '-info-text').style.display == 'inline-block') {
+        document.querySelector('#' + id + '-info-text').style.display = 'none'
       } else {
-        document.querySelector('#' + id).style.display = 'inline-block'
+        document.querySelector('#' + id + '-info-text').style.display = 'inline-block'
       }
     },
     async getRecommendations() {
