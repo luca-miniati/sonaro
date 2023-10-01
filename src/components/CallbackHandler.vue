@@ -41,7 +41,7 @@ export default {
         params: {
           grant_type: 'authorization_code',
           code: code,
-          redirect_uri: 'http://sonaro.vercel.app/callback',
+          redirect_uri: 'http://' + process.env.VUE_APP_BASE_URL + '/callback',
         },
       }
 
