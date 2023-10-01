@@ -7,13 +7,10 @@
       <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-      <nav>
+      <nav class="navbar">
         <a href="/">
           <img src="@/assets/logo.png" alt="Logo">
           <h1>Sonaro</h1>
-        </a>
-        <a>
-          <img src="@/assets/menu.png" alt="Menu">
         </a>
       </nav>
       <main>
@@ -41,7 +38,7 @@ body {
   background-color: #303030;
 }
 
-nav {
+.navbar {
   background-color: #202020;
   height: 10vh;
   display: flex;
@@ -56,11 +53,12 @@ nav a {
   text-decoration: none;
   height: inherit;
   color: white;
+  margin: 0 auto;
 }
 
 nav img {
   max-height: 8vh;
-  padding: 0 2vh;
+  padding-right: 5vw;
 }
 
 nav a:hover {

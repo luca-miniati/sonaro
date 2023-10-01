@@ -1,0 +1,99 @@
+<template>
+  <div class="recommended-tracks">
+    <div class="recommendation-section">
+      <p class="section-title">Recommended Tracks</p>
+      <div class="track-section">
+        <ul class="tracks">
+          <li v-for="track in recommendedTracks" :key="track.id">
+            <div class="track">
+              <img :src="track.album.images[0].url">
+              <div class="track-info">
+                <p class="track-name">{{ track.name }}</p>
+                <div class="artist-info">
+                  <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
+                </div>
+              </div>
+              <a @click="removeTrack(track)" class="remove-track">
+                <img src="@/assets/removetrack.png">
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="export-button">
+      <img src="@/assets/spotify.png">
+      <a @click="exportTracks">Export to Spotify</a>
+    </div>
+  </div>
+</template>
+
+<script>
+import '@/components/recommendedtracks.css'
+import axios from 'axios'
+import { mapGetters } from 'vuex';
+
+
+export default {
+  name: "RecommendedTracks",
+  props: ['tracks'],
+  data() {
+    return {
+      recommendedTracks: []
+    }
+  },
+  created() {
+    this.recommendedTracks = [...JSON.parse(this.tracks)]
+    console.log(this.recommendedTracks[0])
+  },
+  methods: {
+    ...mapGetters(['getAccessToken']),
+    removeTrack(track) {
+      this.recommendedTracks.splice(this.recommendedTracks.indexOf(track), 1);
+    },
+    async exportTracks() {
+      // Fetch user profile
+      const profileUrl = 'https://api.spotify.com/v1/me';
+      const profileHeaders = {
+        'Authorization': `Bearer ${this.getAccessToken()}`,
+        'Content-Type': 'application/json',
+      };
+      const profileResponse = await axios.get(profileUrl, {
+        headers: profileHeaders,
+      });
+      const userId = profileResponse.data.id;
+
+      // Create playlist
+      const playlistUrl = `https://api.spotify.com/v1/users/${userId}/playlists`;
+      const playlistHeaders = {
+        'Authorization': `Bearer ${this.getAccessToken()}`,
+        'Content-Type': 'application/json',
+      };
+      const playlistData = {
+        'name': 'Recommendation Playlist',
+        'description': 'by Sonaro',
+      };
+      const playlistResponse = await axios.post(playlistUrl, playlistData, {
+        headers: playlistHeaders,
+      });
+      const playlistId = playlistResponse.data.id;
+
+      // Update playlist tracks
+      const updatePlaylistUrl = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+      const uris = this.recommendedTracks.map((track) => track.uri);
+      const updatePlaylistData = {
+        'uris': uris,
+        'position': 0,
+      };
+      const updatePlaylistResponse = await axios.post(updatePlaylistUrl, updatePlaylistData, {
+        headers: {
+          'Authorization': `Bearer ${this.getAccessToken()}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log(updatePlaylistResponse);
+    },
+  }
+}
+</script>

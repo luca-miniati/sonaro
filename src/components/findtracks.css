@@ -1,4 +1,4 @@
-.get-recommendations {
+.find-tracks {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +17,12 @@
   flex-direction: column;
   align-items: flex-start;
   width: 90%;
-  margin: 1.5vh auto;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 27vh;
+  position: absolute;
+  z-index: 2;
+  padding: 0 3vw;
 }
 .section-title {
   font-size: x-large;
@@ -115,10 +117,12 @@
   color: #C0C0C0;
   white-space: nowrap;
 }
+
 .dropdown li:hover {
   background-color: #f0f0f0;
 }
-.limit input {
+
+.setting-section input {
   width: 25%;
   height: 3vh;
   margin-left: 5%;
@@ -128,24 +132,144 @@
   border: none;
   text-indent: 15%;
 }
-.limit input:focus {
+
+.setting-section input:focus {
   outline: none;
 }
-.slider {
+
+#no-tracks-selected {
+  display: none;
+  color: #ff5a5a;
+  margin: 1.5vh;
+}
+
+#limit-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#energy-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#popularity-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#valence-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#danceability-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#instrumentalness-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#acousticness-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#tempo-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#liveness-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#loudness-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+#speechiness-outside-range {
+  display: none;
+  color: #ff5a5a;
+}
+
+.setting-section {
   width: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
+  padding: 0.5vh;
+}
+
+.settings-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-label {
   margin: 1vh 0;
 }
-input[type=range]::-webkit-slider-thumb {
-  background-color: red;
+
+.settings-title img {
+  height: 2vh;
+  padding-right: 3vw;
 }
-/* input[type=range]::-webkit-slider-runnable-track {
-  background-color: yellow;
-} */
-input[type=range]::-webkit-slider-progress {
-  background-color: blue; 
+
+.settings-info-text {
+  display: none;
+  color: #ccc;
+  background-color: #0D0D0D;
+  padding: 1vh;
+  margin: 1vh;
+  width: fit-content;
 }
-input[type=range]:focus::-webkit-slider-thumb {
-  background-color: green;
+
+.slider-input {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 96.3%;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  border-radius: 16em;
+}
+
+.slider-input::-webkit-slider-runnable-track {
+  height: 2vh;
+  background: #ccc;
+  border-radius: 16em;
+  pointer-events: none
+}
+
+.slider-input::-moz-range-track {
+  height: 2vh;
+  background: #ccc;
+  border-radius: 16em;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none; 
+  height: 100%;
+  width: 2vh;
+  background-color: #ccc;
+  border-radius: 50%;
+  border: 0.188em solid #0D0D0D;
+}
+
+.slider-input::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none; 
+  height: 100%;
+  width: 6%;
+  background-color: #ccc;
+  border-radius: 50%;
+  border: 0.188em solid #0D0D0D;
 }
