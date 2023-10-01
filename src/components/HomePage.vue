@@ -3,15 +3,15 @@
     <div class="typewriter-box">
       <h2>Music recommendations,<br>fully <span ref="text"></span></h2>
     </div>
-    <div class="login-button">
+    <button class="login-button" @click=getUserAuthorization>
       <img src="@/assets/spotify.png">
-      <a @click=getUserAuthorization>Log In with Spotify</a>
-    </div>
+      <p>Log In with Spotify</p>
+    </button>
   </div>
 </template>
 
 <script>
-import { v4 } from 'uuid';
+import { v4 } from 'uuid'
 
 export default {
   name: 'HomePage',
@@ -27,21 +27,21 @@ export default {
   },
   methods: {
     async getUserAuthorization() {
-      const client_id = process.env.VUE_APP_CLIENT_ID;
-      const redirect_uri = encodeURIComponent('http://' + process.env.VUE_APP_BASE_URL + '/callback');
-      const state = v4();
-      const scope = 'user-read-private user-read-recently-played playlist-read-private playlist-read-collaborative user-top-read playlist-modify-public';
+      const client_id = process.env.VUE_APP_CLIENT_ID
+      const redirect_uri = encodeURIComponent('http://' + process.env.VUE_APP_BASE_URL + '/callback')
+      const state = v4()
+      const scope = 'user-read-private user-read-recently-played playlist-read-private playlist-read-collaborative user-top-read playlist-modify-public'
       const authorizationUrl = `https://accounts.spotify.com/authorize?` +
         `response_type=code` +
         `&client_id=${client_id}` +
         `&redirect_uri=${redirect_uri}` +
         `&state=${state}` +
-        `&scope=${scope}`;
+        `&scope=${scope}`
 
-      window.location.href = authorizationUrl;
+      window.location.href = authorizationUrl
     },
     typeText() {
-      const word = this.words[this.wordIndex];
+      const word = this.words[this.wordIndex]
       // word in progress
       if (this.charIndex < (word.length * 2)) {
         // word adding
