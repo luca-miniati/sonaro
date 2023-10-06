@@ -95,6 +95,8 @@ export default {
   height: 10%;
   border-radius: 15px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
 .login-button img {
@@ -103,7 +105,7 @@ export default {
 }
 
 .login-button:hover {
-  background-color: #171717;
+  background-color: #222222;
 }
 
 .typewriter-box {

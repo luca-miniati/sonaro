@@ -11,11 +11,13 @@
         <ul v-if="searchResults.length > 0" class="dropdown">
           <li v-for="track in searchResults" :key="track.id" @click="selectTrack(track)">
             <div class="track">
-              <img :src="track.album.images[0].url">
-              <div class="track-info">
-                <p class="track-name">{{ track.name }}</p>
-                <div class="artist-info">
-                  <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
+              <div style="display: flex; align-items: center;">
+                <img :src="track.album.images[0].url">
+                <div class="track-info">
+                  <p class="track-name">{{ track.name }}</p>
+                  <div class="artist-info">
+                    <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -24,11 +26,13 @@
         <ul v-if="selectedTracks.length > 0" class="selected-tracks">
           <li v-for="track in selectedTracks" :key="track.id">
             <div class="track">
-              <img :src="track.album.images[0].url">
-              <div class="track-info">
-                <p class="track-name">{{ track.name }}</p>
-                <div class="artist-info">
-                  <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
+              <div style="display: flex; align-items: center;">
+                <img :src="track.album.images[0].url">
+                <div class="track-info">
+                  <p class="track-name">{{ track.name }}</p>
+                  <div class="artist-info">
+                    <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
+                  </div>
                 </div>
               </div>
               <a @click="removeTrack(track)" class="remove-track">
@@ -61,15 +65,15 @@
       </div>
     </div>
 
-    <div class="get-recommendations-button">
+    <div class="get-recommendations-button" @click=getRecommendations>
       <img src="@/assets/getrecommendations.png">
-      <a @click=getRecommendations>Get Recommendations</a>
+      <p>Get Recommendations</p>
     </div>
   </div>
 </template>
   
 <script>
-import '@/components/findtracks.css'
+import '@/components/globals.css'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
 import { Buffer } from 'buffer'

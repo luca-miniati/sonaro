@@ -13,9 +13,14 @@
                   <p class="artist-name">{{ track.artists.map(a => a.name).join(', ') }}</p>
                 </div>
               </div>
-              <a @click="removeTrack(track)" class="remove-track">
-                <img src="@/assets/removetrack.png">
-              </a>
+              <div class="link-remove-section">
+                <a @click="openLink(track)" class="remove-track">
+                  <img src="@/assets/spotifylink.png">
+                </a>
+                <a @click="removeTrack(track)" class="remove-track">
+                  <img src="@/assets/removetrack.png">
+                </a>
+              </div>
             </div>
           </li>
         </ul>
@@ -29,7 +34,7 @@
 </template>
 
 <script>
-import '@/components/recommendedtracks.css'
+import '@/components/globals.css'
 import axios from 'axios'
 import { mapGetters } from 'vuex';
 
@@ -44,10 +49,12 @@ export default {
   },
   created() {
     this.recommendedTracks = [...JSON.parse(this.tracks)]
-    console.log(this.recommendedTracks[0])
   },
   methods: {
     ...mapGetters(['getAccessToken']),
+    openLink(track) {
+      window.open(track.external_urls['spotify'], '_blank')
+    },
     removeTrack(track) {
       this.recommendedTracks.splice(this.recommendedTracks.indexOf(track), 1);
     },
