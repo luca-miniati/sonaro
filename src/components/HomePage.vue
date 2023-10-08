@@ -38,6 +38,7 @@ export default {
         `&state=${state}` +
         `&scope=${scope}`
 
+      console.log(authorizationUrl)
       window.location.href = authorizationUrl
     },
     typeText() {

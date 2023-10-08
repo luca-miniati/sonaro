@@ -26,9 +26,9 @@
         </ul>
       </div>
     </div>
-    <div class="export-button">
+    <div class="export-button" @click=exportTracks>
       <img src="@/assets/spotify.png">
-      <a @click="exportTracks">Export to Spotify</a>
+      <p>Export to Spotify</p>
     </div>
   </div>
 </template>
@@ -92,14 +92,12 @@ export default {
         'uris': uris,
         'position': 0,
       };
-      const updatePlaylistResponse = await axios.post(updatePlaylistUrl, updatePlaylistData, {
+      await axios.post(updatePlaylistUrl, updatePlaylistData, {
         headers: {
           'Authorization': `Bearer ${this.getAccessToken()}`,
           'Content-Type': 'application/json',
         },
       });
-
-      console.log(updatePlaylistResponse);
     },
   }
 }
