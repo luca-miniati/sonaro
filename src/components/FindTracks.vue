@@ -12,7 +12,7 @@
                     <ul v-if="searchResults.length > 0" class="dropdown">
                         <li v-for="track in searchResults" :key="track.id" @click="selectTrack(track)">
                             <div class="track">
-                                <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center; width: 100%">
                                     <img :src="track.album.images[1].url">
                                     <div class="track-info">
                                         <p class="track-name">{{ track.name }}</p>
@@ -27,7 +27,7 @@
                     <ul v-if="selectedTracks.length > 0" class="selected-tracks">
                         <li v-for="track in selectedTracks" :key="track.id">
                             <div class="track">
-                                <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center; width: 100%">
                                     <img :src="track.album.images[1].url">
                                     <div class="track-info">
                                         <p class="track-name">{{ track.name }}</p>
@@ -240,9 +240,15 @@
             selectTrack(track) {
                 document.querySelector('#no-tracks-selected').style.display = "none"
                 
-                console.log("track: " + track.id)
-                console.log("index: " + this.selectedTracks.indexOf(track))
-                this.selectedTracks.push(track)
+                var selected = false
+                for (var selectedTrack of this.selectedTracks) {
+                    if (track.id == selectedTrack.id) {
+                        selected = true
+                    }
+                }
+                if (!selected) {
+                    this.selectedTracks.push(track)
+                }
                 this.searchResults = []
                 
                 const searchInput = document.querySelector(".search-input")
