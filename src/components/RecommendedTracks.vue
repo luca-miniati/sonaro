@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div class="link-remove-section">
-                <a @click="openLink(track)" class="link-track">
+                <a @click="openLink(track)" class="remove-track">
                   <img src="@/assets/spotifylink.png">
                 </a>
                 <a @click="removeTrack(track)" class="remove-track">
